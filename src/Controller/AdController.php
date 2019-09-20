@@ -33,17 +33,7 @@ class AdController extends AbstractController
      */
     public function create(Request $request, ObjectManager $manager) {
         $ad=new Ad();
-        /* on met 2 images dans l'annonce 
-        $image = new Image();
-        $image->setUrl('http://placehold.it/400x200')
-                ->setCaption('Titre 1');
-        $image2 = new Image();
-        $image2->setUrl('http://placehold.it/400x200')
-                ->setCaption('Titre 2');
 
-        $ad->addImage($image);
-        $ad->addImage($image2);
-*/
         $form = $this->createForm(AnnonceType::class, $ad);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -54,6 +44,8 @@ class AdController extends AbstractController
                 $image->setAd($ad);
                 $manager->persist($image);
             }
+            $ad->setAuthor($this->getUser());
+
             $manager->persist($ad);
             $manager->flush();
             $this->addFlash(
