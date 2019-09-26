@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    erreur d'authorisation
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Oups ! L'action que vous cherchez à faire n'est pas authorisée !</h1>
+        <p>Vous pouvez retourner à l'accueil</p>
+
+        <a href="{{ path('homepage')}}" class="btn btn-primary">Retour à l'accueil</a>
+        <a href="{{ path('ads_index')}}" class="btn btn-success">Nos annonces</a>
+    </div>
+
+{% endblock %}
