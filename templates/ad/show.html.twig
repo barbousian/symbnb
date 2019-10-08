@@ -50,6 +50,37 @@
                       <span class="sr-only">Next</span>
                     </a>
                 </div>
+
+                <hr>
+
+                {% if ad.comments|length > 0%}
+                    <h2 class="mb-3">Commentaires de nos voyageurs</h2>
+
+                    <div class="alert alert-info">
+                        <h4 class="alert-heading text-center">
+                            <div class="row text-item-center">
+                                <div class="col-8">
+                                    <small>Moyenne des notes obtenues sur {{ad.comments|length}} avis</small>
+                                </div>
+                                <div class="col">
+                                    {% include 'partials/rating.html.twig' with {'rating': ad.getAvgRatings}%}
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% for comment in ad.comments %}
+                        <div class="bg-light rounded mb-3 py-3 px-3">
+                            <strong> {{comment.author.fullName}} </strong>
+                            <blockquote>
+                                {{comment.content | raw }}
+                            </blockquote>  
+                            <strong>Note donnée par {{comment.author.fullName}} :</strong>
+                            {% include 'partials/rating.html.twig' with {'rating':comment.rating}%}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>pas de commentaire</h2>
+                {% endif %}
             </div>
             <div class="col">
                 {% set a = ad.author %}

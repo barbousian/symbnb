@@ -4,19 +4,43 @@
 
 {% block body %}
 <div class="container">
-    <h1>Modification du profil</h1>
-    <div class="col-md-3">&nbsp;</div>
-    <div class="col-md-6">
-        <div class="bg-light py-3 px-3">
-            {{form_start(form)}}
-            {{form_widget(form)}}
-            <button class="btn btn-primary" type="submit">
-                confirmez la modification ...
-            </button>
-            {{form_end(form)}}
+    <h1 class="my-5">Modification du profil</h1>
 
+    {{form_start(form)}}
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Informations générales</h2>
+                <hr>
+                {{ form_row(form.firstName)}}
+                {{ form_row(form.lastName)}}
+                {{ form_row(form.email)}}
+                {{ form_row(form.picture)}}
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Détail</h2>
+                <hr>
+                {{ form_row(form.introduction)}}
+                {{ form_row(form.description)}}
+            </div>
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Modification du Mot de passe</h2>
+                <hr>
+                <a href="{{path('account_password')}}" class="btn btn-primary">Modifier le mot de passe</a>
+            </div>
         </div>
     </div>
+    <div class="alert alert-success clearfix">
+        <h2 class="alert-heading">Enregistrer les modifs</h2>
+        <button class="btn btn-primary float-right" type="submit">
+            <i class="fas fa-check"></i>
+            confirmez la modification
+        </button>
+    </div>
+    
+    {{form_end(form)}}
 
 </div>
 {% endblock %}

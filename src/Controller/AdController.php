@@ -140,6 +140,6 @@ class AdController extends AbstractController
         );
 
         return $this->redirectToRoute('ads_index');
-}
+    }
 
 }

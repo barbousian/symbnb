@@ -5,7 +5,8 @@
 {% block body %}
     {% set ad = booking.ad %}
     {% set author = ad.author %}
-
+    {% set commentBooking = ad.getcommentFromUser(booking.booker) %}
+    
     <div class="container">
         <h1>Votre Réservation N° {{ booking.id }} du séjour dans {{ booking.ad.title }}</h1>
 <!-- récupération d'une variable de l'URL --> 
@@ -39,6 +40,8 @@
                         <dd class="col-md-8">{{ booking.createdAt  | date('d/m/y')}}</dd>
                         <dt class="col-md-4">nombre de nuits</dt>
                         <dd class="col-md-8">{{ booking.duration }}</dd>
+                        <dt class="col-md-4">commentaire</dt>
+                        <dd class="col-md-8">{{ booking.comment | default('pas de commentaire')}}</dd>
                     </dl>
 
                     <hr>
@@ -58,6 +61,34 @@
                     {{author.description | raw}}
 
                     <a href="{{path('user_show', {'slug':author.slug})}}" class="btn btn-primary">Plus d'info sur votre Hôte {{ author.firstName}}</a>
+                </div>
+
+                <div class="alert alert-light">
+                    <h2 class="alert-heading"> Votre avis compte !</h2>
+                    {% if date() > date(booking.endDate) %}
+                        {% if commentBooking %}
+                            <div class="bg-light rounded mb-3 py-3 px-3">
+                                <blockquote>
+                                    {{commentBooking.content | raw }}
+                                </blockquote>  
+                                <strong>Votre Note :</strong>
+                                {% include 'partials/rating.html.twig' with {'rating':commentBooking.rating}%}
+                            </div>
+                        {% else %}
+                            <div class="bg-light py-3 px-3">
+                                <h4>donnez une note et votre avis !</h4>
+                                {{form_start(formComment)}}
+                                {{form_widget(formComment)}}
+                                <button class="btn btn-success" type="submit">
+                                    envoyez votre avis ...
+                                </button>
+                                {{form_end(formComment)}}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        Vous pourrez laisser un commentaire lorsque votre séjour sera passé !
+                    {% endif %}
+
                 </div>
             </div>
             <div class="col">

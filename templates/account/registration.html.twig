@@ -4,19 +4,39 @@
 
 {% block body %}
 <div class="container">
-    <div class="col-md-3">&nbsp;</div>
-    <div class="col-md-6">
-        <div class="bg-light py-3 px-3">
-            <h1>Inscrivez-vous sur notre site!</h1>
-            {{form_start(form)}}
-            {{form_widget(form)}}
-            <button class="btn btn-success" type="submit">
-                confirmez inscription ...
-            </button>
-            {{form_end(form)}}
-
+    <h1 class="my-5">Inscrivez-vous sur notre site!</h1>
+    {{form_start(form)}}
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Identité</h2>
+                {{ form_row(form.firstName)}}
+                {{ form_row(form.lastName)}}
+                {{ form_row(form.email)}}
+                {{ form_row(form.picture)}}
+            </div>
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Mot de passe</h2>
+                <p>donnez un mot de passe compliqué</p>
+                {{ form_row(form.hash)}}
+                {{ form_row(form.hashConfirm)}}
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Détail</h2>
+                {{ form_row(form.introduction)}}
+                {{ form_row(form.description)}}
+            </div>
         </div>
     </div>
-
+    <div class="alert alert-success clearfix">
+        <h2 class="alert-heading">Finaliser l'inscription</h2>
+        <button class="btn btn-primary float-right" type="submit">
+            <i class="fas fa-check"></i>
+            confirmez votre inscription
+        </button>
+    </div>
+    {{form_end(form)}}
 </div>
 {% endblock %}

@@ -33,7 +33,7 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="La date doit être au bon format")
-     * @Assert\GreaterThan("today", message="La date d'arrivée doit être supérieure à aujourd'hui!");
+     * @Assert\GreaterThan("today", message="La date d'arrivée doit être supérieure à aujourd'hui!", groups={"front"});
      * 
      */
     private $startDate;
@@ -64,6 +64,7 @@ class Booking
      * Permet de renseigner la date de création et le montant d'une réservation
      * 
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      *
      * @return void
      */

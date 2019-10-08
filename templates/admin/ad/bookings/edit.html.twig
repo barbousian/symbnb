@@ -1,35 +1,32 @@
-{% extends 'base.html.twig' %}
+{%  extends 'admin/base.html.twig' %}
 
-{% block title %}réservation{% endblock %}
-
+{% block title %} administration des réservations{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Réserver un séjour dans {{ ad.title }}</h1>
-    <p>Vous êtes sur le point de réserver le bien de <strong></strong>{{ad.author.fullname}} !</p>
+    <h1 class="my-5">Modification de la réservation N° {{ booking.id }}</h1>
 
     {{ form_start(form) }}
     <div class="alert alert-light">
-        <h2>Commencez par donner vos dates</h2>
+        <h2>Les dates</h2>
         <div class="row">
             <div class="col">
                 {{form_row(form.startDate)}}
+                {{form_row(form.endDate)}}
+                {{form_row(form.comment)}}
             </div>
             <div class="col">
-                {{form_row(form.endDate)}}
+                {{form_row(form.booker)}}
+                {{form_row(form.ad)}}
             </div>
         </div>
-        <h4>Montant du séjour : <span id="amount">...</span></h4>
-        <span id="days">0</span> nuit(s) à {{ad.price|number_format(2, ',', ' ')}} &euro; par nuit
-       
-        <h4 class="mt-3">Vous avez un commentaire ?</h4>
-        {{form_row(form.comment)}}
+        <h4>Montant du séjour : <span id="amount">{{booking.amount}}</span></h4>
+        <span id="days">{{booking.getDuration}}</span> nuit(s) à {{booking.ad.price|number_format(2, ',', ' ')}} &euro; par nuit    
     </div>
-
-    <button type="submit" class="btn btn-success">Je réserve</button>
+    <button type="submit" class="btn btn-success">enregister les modifs</button>
     {{ form_end(form) }}
 </div>
 
@@ -43,7 +40,7 @@
             $('#booking_startDate, #booking_endDate').datepicker({
                 format: 'dd/mm/yyyy',
                 datesDisabled: [
-                    {% for day in ad.getNotAvailableDays %}
+                    {% for day in booking.ad.getNotAvailableDays %}
                         "{{ day.format('d/m/Y') }}",
                     {% endfor %}
                 ],
@@ -64,7 +61,7 @@
                 const DAY_TIME = 24 * 60 * 60 * 1000;
                 const interval = endDate.getTime() - startDate.getTime();
                 const days = interval / DAY_TIME;
-                const amount = days * {{ ad.price }} ;
+                const amount = days * {{ booking.ad.price }} ;
 
                 $('#days').text(days);
                 $('#amount').text(amount.toLocaleString('fr-FR'));

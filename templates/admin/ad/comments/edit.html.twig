@@ -1,0 +1,47 @@
+{%  extends 'admin/base.html.twig' %}
+
+{% block title %} Modification de la réserva(tion) {{ comment.id }}{% endblock %}
+{% block body %} 
+    <div class="container my-5">
+        <h1>Modifier la réservation {{comment.id}} </h1>
+        {{ form_start(form) }}
+
+        <div class="alert alert-info">
+            <h4 class="alert-heading text-center">
+                <div class="row text-item-center">
+                    <div class="col">
+                        <small>note : </small>{% include 'partials/rating.html.twig' with {'rating': comment.rating}%}
+                    </div>
+                </div>
+                <div class="row text-item-center">
+                    <div class="col">
+                        <small>auteur : </small>{{comment.author.fullName}}
+                    </div>
+                </div>
+                <div class="row text-item-center">
+                    <div class="col">
+                        <small>annonce : </small>{{comment.ad.title}}
+                    </div>
+                </div>
+            </h4>
+        </div>
+    
+
+        <div class="row">
+            <div class="col">
+                <div class="card-header">
+                    <h4 class="card-title">Corriger le commentaire ?</h4>
+                </div>
+                <div class="card-body">
+                    {{form_row(form.content)}}
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

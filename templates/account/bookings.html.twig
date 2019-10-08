@@ -10,11 +10,22 @@
     </div>      
     {% for booking in app.user.bookings %}
         {% set ad = booking.ad %}
-        <div class="row mt-3">
-            <div class="col-4">
+        {% set monComm = ad.commentFromUser(app.user) %}
+        <div class="row mt-4">
+            <div class="col-md-4">
                 <img src="{{ad.coverImage}}" alt="photo de la réservation {{ad.title}}" class="img-fluid">
+                <div class="mt-1">
+                    Note générale : {% include 'partials/rating.html.twig' with {'rating':ad.avgRatings}%}
+                </div>
+                <div class="mt-1">
+                    {% if monComm %}
+                        Ma note : {% include 'partials/rating.html.twig' with {'rating':monComm.rating}%}
+                    {% else %}                        
+                        <a href="{{path('booking_show', {'id': booking.id})}}#comment" class="btn btn-success">je mets une appreciation</a>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-8">
+            <div class="col-md-8">
                 <h4>{{ad.title}}</h4>
                 <p>
                     Réservation <strong>n°{{booking.id}}</strong><br>
