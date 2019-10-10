@@ -25,3 +25,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # 
+    # ici on va dire à symfony que quand on appelle le service 'pagination', on veut que l'argument 'templatePath' recoive une valeur par défaut
+    App\Services\Pagination:
+        arguments:
+            $templatePath: 'admin/partials/_pagination.html.twig'

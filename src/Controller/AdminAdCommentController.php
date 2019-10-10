@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Services\Pagination;
 use App\Form\AdminCommentType;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAdCommentController extends AbstractController
 {
     /**
-     * @Route("/admin/ads/comments", name="admin_ads_comments")
+     * @Route("/admin/ads/comments/{page<\d+>?1}", name="admin_ads_comments")
      */
-    public function index(CommentRepository $repo)
+    public function index(CommentRepository $repo, $page=1, Pagination $pagination)
     {
-        $comments = $repo->findAll();
+        $pagination ->setEntityClass(Comment::class)
+                    ->setCurrentPage($page);
+
         return $this->render('admin/ad/comments/comments.html.twig', [
-            'comments' => $comments,
+            'pagination' => $pagination,
         ]);
     }
 
