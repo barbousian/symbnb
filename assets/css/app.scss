@@ -1,22 +1,25 @@
-div.container {
+@import url('./bootstrap.min.css');
+div.container, div.container-fluid {
     margin-top: 20px;
 
 }
+/* le css imbriqué ci-dessous est un léger test de scss
+*/
 
 div.ad-titre {
     padding: 2em;
     background-size: cover;
     background-position: center center;
-}
-div.ad-titre h1, div.ad-titre p{
-    color: white;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
-}
-
-div.ad-titre .btn {
-    margin-top: 2em;
-    font-size: 1.5em;
-    line-height: 1.5em;
+    h1, p {
+        color: white;
+        text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+    }
+    
+    .btn {
+        margin-top: 2em;
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
 }
 
 div.carousel-caption{

@@ -19,6 +19,19 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function propriosStars($limit=2) {
+        return $this->createQueryBuilder('u')
+                    ->select('u as proprio, AVG(c.rating) as avgRatings, count(c) as nbComments')
+                    ->join('u.ads','a')
+                    ->join('a.comments','c')
+                    ->groupBy('u')
+                    ->having('nbComments > 2')
+                    ->orderBy('avgRatings','DESC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

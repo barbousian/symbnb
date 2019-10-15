@@ -1,3 +1,6 @@
+// loads the jquery package from node_modules
+var $ = require('jquery');
+
 $('#add-image').click(function() {
     // je veux savoir quel va être le No de mon futur champs 
     // le + sert à transformer la valeur est un nombre
@@ -22,6 +25,5 @@ function updateCounter() {
     const count= +$('#annonce_images div.form-group').length;
     $('#widgets-counter').val(count);
 }
-
 updateCounter();
 handleDeleteButtons();
